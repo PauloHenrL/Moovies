@@ -1,15 +1,31 @@
-export default function initMenuMobile() {}
+export default function initMenuMobile() {
+  const btnMenu = document.querySelector("[data-menu-btn]");
+  const menu = document.querySelector("[data-menu]");
+  const menuLinks = menu.querySelectorAll("li a");
+  const className = "ativo";
+  const eventList = ["click", "touchstart"];
 
-const btnMenu = document.querySelectorAll("[data-menu-btn]");
-const menu = document.querySelector("[data-menu]");
-const eventList = ["click", "touchstart"];
+  function preventLinks(event) {
+    event.preventDefault();
+  }
 
-function handleMenu(event) {
-  menu.classList.toggle("ativo");
-}
+  function handleMenu() {
+    btnMenu.classList.toggle(className);
+    menu.classList.toggle(className);
+  }
 
-eventList.forEach((userEvent) => {
-  btnMenu.forEach((btn) => {
-    btn.addEventListener(userEvent, handleMenu);
+  function outsideClick(event) {
+    if (event.target != btnMenu && event.target != menu) {
+      menu.classList.remove(className);
+      btnMenu.classList.remove(className);
+    }
+  }
+
+  eventList.forEach((userEvent) => {
+    window.addEventListener(userEvent, outsideClick);
+    btnMenu.addEventListener(userEvent, handleMenu);
+    menuLinks.forEach((link) => {
+      link.addEventListener(userEvent, preventLinks);
+    });
   });
-});
+}
