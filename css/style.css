@@ -136,7 +136,7 @@ img {
   width: fit-content;
 }
 
-.video video {
+.video iframe {
   width: 100%;
 }
 
