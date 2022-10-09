@@ -3,7 +3,6 @@ export default function initMenuMobile() {
   const menu = document.querySelector("[data-menu]");
   const menuLinks = menu.querySelectorAll("li a");
   const className = "ativo";
-  const eventList = ["click", "touchstart"];
 
   function preventLinks(event) {
     event.preventDefault();
@@ -21,11 +20,9 @@ export default function initMenuMobile() {
     }
   }
 
-  eventList.forEach((userEvent) => {
-    window.addEventListener(userEvent, outsideClick);
-    btnMenu.addEventListener(userEvent, handleMenu);
-    menuLinks.forEach((link) => {
-      link.addEventListener(userEvent, preventLinks);
-    });
+  window.addEventListener("click", outsideClick);
+  btnMenu.addEventListener("click", handleMenu);
+  menuLinks.forEach((link) => {
+    link.addEventListener("click", preventLinks);
   });
 }
